@@ -43,9 +43,7 @@ public class PsychisModClient implements ClientModInitializer {
         this.keybinds = new ArrayList<>();
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability1", GLFW.GLFW_KEY_Z, "hdn_ability1"));
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
-        this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> {
-            MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")));
-        }));
+        this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")))));
 
         // Registering chat interceptor
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
