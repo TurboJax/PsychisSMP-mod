@@ -8,7 +8,7 @@ import com.rooxchicken.event.DrawGUICallback;
 import com.rooxchicken.keybinding.CommandKeybind;
 import com.rooxchicken.keybinding.KeyInputHandler;
 import com.rooxchicken.keybinding.Keybind;
-import com.rooxchicken.screen.AbilityElement;
+import com.rooxchicken.screen.AbilityWidget;
 import com.rooxchicken.screen.ConfigScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
@@ -33,8 +33,8 @@ public class PsychisModClient implements ClientModInitializer {
     public static int playerAbility = -1;
     public static AbilityData abilityData = new AbilityData("empty");
     public static ArrayList<AbilityDesc> abilities;
-    public static AbilityElement abilityElement1;
-    public static AbilityElement abilityElement2;
+    public static AbilityWidget abilityElement1;
+    public static AbilityWidget abilityElement2;
     public static boolean enabled = false;
     public static DrawGUICallback guiCallback;
 
@@ -60,8 +60,8 @@ public class PsychisModClient implements ClientModInitializer {
             playerAbility = -2;
             abilityData = new AbilityData("empty");
         });
-        abilityElement1 = new AbilityElement(0);
-        abilityElement2 = new AbilityElement(1);
+        abilityElement1 = new AbilityWidget(0);
+        abilityElement2 = new AbilityWidget(1);
         load();
     }
 

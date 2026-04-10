@@ -22,23 +22,16 @@ public class ConfigScreen extends Screen {
 
     public void init() {
         this.resetButton = ButtonWidget.builder(Text.of("Reset"), (button) -> {
+        this.addDrawableChild(PsychisModClient.abilityElement1);
+        this.addDrawableChild(PsychisModClient.abilityElement2);
+
             PsychisModClient.abilityElement1.reset();
             PsychisModClient.abilityElement2.reset();
         }).dimensions(this.width / 2 - 50, this.height - 30, 100, 20).build();
         this.addDrawableChild(this.resetButton);
     }
 
-    public boolean mouseClicked(Click click, boolean doubled) {
-        this.mouseStatus = click.button();
-        PsychisModClient.abilityElement1.mouseStatus = this.mouseStatus;
-        PsychisModClient.abilityElement2.mouseStatus = this.mouseStatus;
-        return super.mouseClicked(click, doubled);
-    }
-
     public boolean mouseReleased(Click click) {
-        this.mouseStatus = -1;
-        PsychisModClient.abilityElement1.mouseStatus = this.mouseStatus;
-        PsychisModClient.abilityElement2.mouseStatus = this.mouseStatus;
         PsychisModClient.save();
         return super.mouseReleased(click);
     }
@@ -55,9 +48,5 @@ public class ConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         PsychisModClient.guiCallback.onHudRender(context, RenderTickCounter.ZERO);
-//        RenderSystem.enableBlend();
-        PsychisModClient.abilityElement1.HandleLines(this, context, this.textRenderer, mouseX, mouseY);
-//        RenderSystem.enableBlend();
-        PsychisModClient.abilityElement2.HandleLines(this, context, this.textRenderer, mouseX, mouseY);
     }
 }
