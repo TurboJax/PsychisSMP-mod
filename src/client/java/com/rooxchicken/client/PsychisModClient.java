@@ -39,11 +39,15 @@ public class PsychisModClient implements ClientModInitializer {
     public void onInitializeClient() {
         abilities = new ArrayList<>();
 
+        // Getting the keybinds into a list
         this.keybinds = new ArrayList<>();
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability1", GLFW.GLFW_KEY_Z, "hdn_ability1"));
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
-        this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")))));
+        this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> {
+            MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")));
+        }));
 
+        // Registering chat interceptor
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             String content = message.getString();
             if (content.startsWith("psyz91")) {
@@ -52,6 +56,8 @@ public class PsychisModClient implements ClientModInitializer {
             }
             return true;
         });
+
+        // Registering keybind listener
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
             if (PsychisModClient.playerAbility != -1) {
                 for (Keybind bind : keybinds) {
@@ -59,6 +65,8 @@ public class PsychisModClient implements ClientModInitializer {
                 }
             }
         });
+
+        // Registering events to clear ability data when a player joins/leaves a server
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             enabled = false;
             playerAbility = -2;
@@ -70,14 +78,23 @@ public class PsychisModClient implements ClientModInitializer {
             abilityData = new AbilityData("empty");
         });
 
+
+        // Initializing the hud elements
         abilityElement1 = new AbilityWidget(0);
         abilityElement2 = new AbilityWidget(1);
         HudElementRegistry.addLast(Identifier.of("psychis-mod", "ability_element1"), abilityElement1);
         HudElementRegistry.addLast(Identifier.of("psychis-mod", "ability_element2"), abilityElement2);
 
+        // Loading the config
         load();
     }
 
+    /**
+     * Helper function that sends commands to the plugin through chat.
+     * Only sends commands if the plugin has reached out to the client.
+     *
+     * @param msg The command to send
+     */
     public static void sendChatCommand(String msg) {
         if (enabled) {
             assert MinecraftClient.getInstance().player != null;
@@ -85,22 +102,29 @@ public class PsychisModClient implements ClientModInitializer {
         }
     }
 
+    /**
+     * Loads the config.  It just contains the positions and sizes of the AbilityWidgets.
+     */
     public static void load() {
         File file = new File("psychis-mod.cfg");
         if (!file.exists()) {
             save();
-        } else {
-            try {
-                Scanner scan = new Scanner(file);
-                abilityElement1.load(scan);
-                abilityElement2.load(scan);
-                scan.close();
-            } catch (FileNotFoundException var2) {
-                PsychisMod.LOGGER.error("Failed to open config file.", var2);
-            }
+            return;
+        }
+
+        try {
+            Scanner scan = new Scanner(file);
+            abilityElement1.load(scan);
+            abilityElement2.load(scan);
+            scan.close();
+        } catch (FileNotFoundException var2) {
+            PsychisMod.LOGGER.error("Failed to open config file.", var2);
         }
     }
 
+    /**
+     * Saves data to the config.
+     */
     public static void save() {
         File file = new File("psychis-mod.cfg");
 
