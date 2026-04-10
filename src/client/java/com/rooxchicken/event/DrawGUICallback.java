@@ -27,10 +27,14 @@ public class DrawGUICallback implements HudRenderCallback {
             float scale2 = PsychisModClient.abilityElement2.getWidth() / 64f;
             float pos2X = PsychisModClient.abilityElement2.getX() * (1.0f / scale2);
             float pos2Y = PsychisModClient.abilityElement2.getY() * (1.0f / scale2);
+            int cooldown1 = abilityData.cooldowns.get(0);
+            int cooldown2 = abilityData.cooldowns.get(1);
+            int cooldown1Max = abilityData.cooldownMaxes.get(0);
+            int cooldown2Max = abilityData.cooldownMaxes.get(1);
             String txt1 = "";
             String txt2 = "";
             if (cooldown1 > 0) {
-                txt1 = txt1 + abilityData.cooldown1;
+                txt1 = txt1 + cooldown1;
             } else if (cooldown1 == -1) {
                 txt1 = "0";
             } else {
@@ -38,7 +42,7 @@ public class DrawGUICallback implements HudRenderCallback {
             }
 
             if (cooldown2 > 0) {
-                txt2 = txt2 + abilityData.cooldown2;
+                txt2 = txt2 + cooldown2;
             } else if (cooldown2 == -1) {
                 txt2 = "0";
             } else {
@@ -47,14 +51,14 @@ public class DrawGUICallback implements HudRenderCallback {
 
             this.startScaling(drawContext, scale1);
             this.matrixStack.translate(pos1X, pos1Y);
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.texture1, 0, 0, 0, 0, 64, 64, 64, 64);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.textures.get(0), 0, 0, 0, 0, 64, 64, 64, 64);
             int cooldown1Offset = (int) (64.0D * ((0.0D + (double) cooldown1) / (double) cooldown1Max));
             drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.cooldownTexture, 0, 64 - cooldown1Offset, 0, 0, 64, cooldown1Offset, 64, 64, 0x7FFFFFFF);
             drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.outlineTexture, 0, 0, 0, 0, 64, 64, 64, 64, 0x7FFFFFFF);
             this.stopScaling(drawContext);
             this.startScaling(drawContext, scale2);
             this.matrixStack.translate(pos2X, pos2Y);
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, HandleData.dragonEggAbilityOverride == -1 ? abilityData.texture2 : Identifier.of("psychis-mod", "textures/abilities/" + HandleData.dragonEggAbilityOverride + "_1.png"), 0, 0, 0, 0, 64, 64, 64, 64);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, HandleData.dragonEggAbilityOverride == -1 ? abilityData.textures.get(1) : Identifier.of("psychis-mod", "textures/abilities/" + HandleData.dragonEggAbilityOverride + "_1.png"), 0, 0, 0, 0, 64, 64, 64, 64);
             int cooldown2Offset = (int) (64.0D * ((0.0D + (double) cooldown2) / (double) cooldown2Max));
             drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.cooldownTexture, 0, 64 - cooldown2Offset, 0, 0, 64, cooldown2Offset, 64, 64, 0x7FFFFFFF);
             if (abilityData.secondLocked) {

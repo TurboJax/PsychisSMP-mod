@@ -26,15 +26,8 @@ public class HandleData {
                 int ability = Integer.parseInt(data[2]);
                 int cooldown = Integer.parseInt(data[3]);
                 int cooldownMax = Integer.parseInt(data[4]);
-                if (ability == 0) {
-                    PsychisModClient.abilityData.cooldown1 = cooldown;
-                    PsychisModClient.abilityData.cooldown1Max = cooldownMax;
-                }
-
-                if (ability == 1) {
-                    PsychisModClient.abilityData.cooldown2 = cooldown;
-                    PsychisModClient.abilityData.cooldown2Max = cooldownMax;
-                }
+                PsychisModClient.abilityData.cooldowns.set(ability, cooldown);
+                PsychisModClient.abilityData.cooldownMaxes.set(ability, cooldownMax);
                 break;
             case 2:
                 AbilityDesc desc = new AbilityDesc();
