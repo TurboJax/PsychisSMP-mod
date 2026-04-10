@@ -1,7 +1,6 @@
 package com.rooxchicken.screen;
 
 import java.util.Scanner;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.KeyBinding;
@@ -42,8 +41,6 @@ public class AbilityElement {
    }
 
    public void HandleLines(ConfigScreen screen, DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-      MinecraftClient client = MinecraftClient.getInstance();
-      double scalingFactor = client.getWindow().getScaleFactor();
       int x1 = this.PositionX + this.x1Mod;
       int x2 = (int)((double)this.PositionX + (double)this.x2Mod * this.Scale);
       int y1 = this.PositionY + this.y1Mod;

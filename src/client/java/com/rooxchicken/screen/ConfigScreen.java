@@ -1,6 +1,5 @@
 package com.rooxchicken.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.rooxchicken.client.PsychisModClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Click;
@@ -14,8 +13,6 @@ import org.lwjgl.glfw.GLFW;
 
 public class ConfigScreen extends Screen {
     private int mouseStatus = -2;
-    private int index = 0;
-    private int clickAction = -1;
     private ButtonWidget resetButton;
     public boolean ObjectSelected = false;
 

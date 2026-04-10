@@ -20,7 +20,6 @@ public class DrawGUICallback implements HudRenderCallback {
         MinecraftClient client = MinecraftClient.getInstance();
         TextRenderer textRenderer = client.textRenderer;
         if (PsychisModClient.playerAbility != -2) {
-            int scalingFactor = client.getWindow().getScaleFactor();
             AbilityData abilityData = PsychisModClient.abilityData;
             float scale1 = PsychisModClient.abilityElement1.Scale;
             float pos1X = PsychisModClient.abilityElement1.PositionX * (1.0f / scale1);
