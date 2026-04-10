@@ -1,0 +1,11 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "item/netherite_sword"
+	},
+	
+	"overrides": [
+		{"predicate": {"custom_model_data":1}, "model": "psychis-mod:item/frostfang"},
+		{"predicate": {"custom_model_data":2}, "model": "psychis-mod:item/tideshaper"}
+	]
+}

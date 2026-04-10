@@ -1,0 +1,10 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "item/netherite_axe"
+	},
+	"overrides": [
+		{"predicate": {"custom_model_data":1}, "model": "psychis-mod:item/agni_axe"},
+		{"predicate": {"custom_model_data":2}, "model": "psychis-mod:item/void_piercer"}
+	]
+}

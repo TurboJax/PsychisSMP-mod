@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "psychis-mod",
+	"version": "1.0.0",
+	"name": "Psychis Mod",
+	"description": "Mod that enables the use of the Psychis SMP plugin",
+	"authors": [
+		"RooXChicken"
+	],
+	"license": "CC0-1.0",
+	"icon": "assets/psychis-mod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "com.rooxchicken.PsychisMod"
+		],
+		"client": [
+          "com.rooxchicken.client.PsychisModClient"
+		]
+	},
+	"mixins": [
+      "psychis-mod.client.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": ">=1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

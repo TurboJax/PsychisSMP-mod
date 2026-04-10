@@ -1,0 +1,114 @@
+package com.rooxchicken.client;
+
+import com.rooxchicken.PsychisMod;
+import com.rooxchicken.data.AbilityData;
+import com.rooxchicken.data.AbilityDesc;
+import com.rooxchicken.data.HandleData;
+import com.rooxchicken.event.DrawGUICallback;
+import com.rooxchicken.keybinding.CommandKeybind;
+import com.rooxchicken.keybinding.KeyInputHandler;
+import com.rooxchicken.keybinding.Keybind;
+import com.rooxchicken.screen.AbilityElement;
+import com.rooxchicken.screen.ConfigScreen;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding.Category;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import org.lwjgl.glfw.GLFW;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PsychisModClient implements ClientModInitializer {
+    public ArrayList<Keybind> keybinds;
+    private final Category category = Category.create(Identifier.of("psychis-mod", "psychis"));
+    public static int playerAbility = -1;
+    public static AbilityData abilityData = new AbilityData("empty");
+    public static ArrayList<AbilityDesc> abilities;
+    public static AbilityElement abilityElement1;
+    public static AbilityElement abilityElement2;
+    public static boolean enabled = false;
+    public static DrawGUICallback guiCallback;
+
+    public void onInitializeClient() {
+        abilities = new ArrayList<>();
+
+        this.keybinds = new ArrayList<>();
+        this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability1", GLFW.GLFW_KEY_Z, "hdn_ability1"));
+        this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
+        this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")))));
+        KeyInputHandler.registerKeyInputs(this.keybinds);
+        guiCallback = new DrawGUICallback();
+
+        registerEvents();
+        HudRenderCallback.EVENT.register(guiCallback);
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            enabled = false;
+            playerAbility = -2;
+            abilityData = new AbilityData("empty");
+        });
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            enabled = false;
+            playerAbility = -2;
+            abilityData = new AbilityData("empty");
+        });
+        abilityElement1 = new AbilityElement(0);
+        abilityElement2 = new AbilityElement(1);
+        load();
+    }
+
+    public void registerEvents() {
+        // Intercepting data from server
+        ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
+            String content = message.getString();
+            if (content.startsWith("psyz91")) {
+                HandleData.parseData(content);
+                return false;
+            }
+            return true;
+        });
+    }
+
+    public static void sendChatCommand(String msg) {
+        if (enabled) {
+            assert MinecraftClient.getInstance().player != null;
+            MinecraftClient.getInstance().player.networkHandler.sendChatCommand(msg);
+        }
+    }
+
+    public static void load() {
+        File file = new File("psychis-mod.cfg");
+        if (!file.exists()) {
+            save();
+        } else {
+            try {
+                Scanner scan = new Scanner(file);
+                abilityElement1.load(scan);
+                abilityElement2.load(scan);
+                scan.close();
+            } catch (FileNotFoundException var2) {
+                PsychisMod.LOGGER.error("Failed to open config file.", var2);
+            }
+        }
+    }
+
+    public static void save() {
+        File file = new File("psychis-mod.cfg");
+
+        try {
+            FileWriter write = new FileWriter(file);
+            write.write(abilityElement1.save() + abilityElement2.save());
+            write.close();
+        } catch (IOException var2) {
+            PsychisMod.LOGGER.error("Failed to save config file.", var2);
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "minecraft:custom_model_data",
+    "fallback": {"type": "minecraft:model", "model": "minecraft:item/netherite_axe"},
+    "entries": [
+      {"threshold": 1, "model": {"type": "minecraft:model", "model": "psychis-mod:item/agni_axe"}},
+      {"threshold": 2, "model": {"type": "minecraft:model", "model": "psychis-mod:item/void_piercer"}}
+    ]
+  }
+}
