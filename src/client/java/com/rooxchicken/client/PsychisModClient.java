@@ -4,7 +4,6 @@ import com.rooxchicken.PsychisMod;
 import com.rooxchicken.data.AbilityData;
 import com.rooxchicken.data.AbilityDesc;
 import com.rooxchicken.data.HandleData;
-import com.rooxchicken.event.DrawGUICallback;
 import com.rooxchicken.keybinding.CommandKeybind;
 import com.rooxchicken.keybinding.KeyInputHandler;
 import com.rooxchicken.keybinding.Keybind;
@@ -13,7 +12,7 @@ import com.rooxchicken.screen.ConfigScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding.Category;
 import net.minecraft.text.Text;
@@ -36,7 +35,6 @@ public class PsychisModClient implements ClientModInitializer {
     public static AbilityWidget abilityElement1;
     public static AbilityWidget abilityElement2;
     public static boolean enabled = false;
-    public static DrawGUICallback guiCallback;
 
     public void onInitializeClient() {
         abilities = new ArrayList<>();
@@ -46,10 +44,8 @@ public class PsychisModClient implements ClientModInitializer {
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
         this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")))));
         KeyInputHandler.registerKeyInputs(this.keybinds);
-        guiCallback = new DrawGUICallback();
 
         registerEvents();
-        HudRenderCallback.EVENT.register(guiCallback);
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             enabled = false;
             playerAbility = -2;
@@ -60,8 +56,12 @@ public class PsychisModClient implements ClientModInitializer {
             playerAbility = -2;
             abilityData = new AbilityData("empty");
         });
+
         abilityElement1 = new AbilityWidget(0);
         abilityElement2 = new AbilityWidget(1);
+        HudElementRegistry.addLast(Identifier.of("psychis-mod", "ability_element1"), abilityElement1);
+        HudElementRegistry.addLast(Identifier.of("psychis-mod", "ability_element2"), abilityElement2);
+
         load();
     }
 
