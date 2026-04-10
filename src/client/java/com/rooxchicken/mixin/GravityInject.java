@@ -1,10 +1,10 @@
 package com.rooxchicken.mixin;
 
+import com.rooxchicken.client.PsychisModClient;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import com.rooxchicken.client.PsychisModClient;
 
 @Mixin(PlayerEntity.class)
 public class GravityInject {

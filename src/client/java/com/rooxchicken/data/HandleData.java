@@ -1,9 +1,9 @@
 package com.rooxchicken.data;
 
-import net.minecraft.client.MinecraftClient;
 import com.rooxchicken.client.PsychisModClient;
 import com.rooxchicken.screen.AbilitySelection;
 import com.rooxchicken.screen.CardSelect;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;

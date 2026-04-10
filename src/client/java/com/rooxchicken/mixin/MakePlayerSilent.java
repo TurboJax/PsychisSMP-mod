@@ -13,7 +13,7 @@ public abstract class MakePlayerSilent {
     @Shadow
     public abstract String getStringifiedName();
 
-    @ModifyReturnValue(method="getMoveEffect",at=@At("RETURN"))
+    @ModifyReturnValue(method = "getMoveEffect", at = @At("RETURN"))
     public Entity.MoveEffect movementEmissionMixin(Entity.MoveEffect retval) {
         return HandleData.silentPlayers.contains(getStringifiedName()) ? Entity.MoveEffect.NONE : retval;
     }

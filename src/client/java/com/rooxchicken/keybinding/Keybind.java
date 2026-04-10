@@ -23,9 +23,12 @@ public class Keybind {
 
     public Keybind(Category category, String name, int GLFWkey, @Nullable Runnable onPress, @Nullable Runnable onRepeat, @Nullable Runnable onRelease) {
         this.binding = KeyBindingHelper.registerKeyBinding(new KeyBinding(name, InputUtil.Type.KEYSYM, GLFWkey, category));
-        this.onPress = onPress == null ? () -> {} : onPress;
-        this.onRepeat = onRepeat == null ? () -> {} : onRepeat;
-        this.onRelease = onRelease == null ? () -> {} : onRelease;
+        this.onPress = onPress == null ? () -> {
+        } : onPress;
+        this.onRepeat = onRepeat == null ? () -> {
+        } : onRepeat;
+        this.onRelease = onRelease == null ? () -> {
+        } : onRelease;
     }
 
     public void checkKey() {

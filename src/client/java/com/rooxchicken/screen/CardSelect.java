@@ -1,10 +1,10 @@
 package com.rooxchicken.screen;
 
+import com.rooxchicken.client.PsychisModClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
-import com.rooxchicken.client.PsychisModClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.KeyInput;
 import net.minecraft.sound.SoundCategory;
