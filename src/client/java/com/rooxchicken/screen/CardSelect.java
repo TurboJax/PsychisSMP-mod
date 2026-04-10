@@ -56,11 +56,6 @@ public class CardSelect extends Screen {
     }
 
     @Override
-    public boolean mouseReleased(Click click) {
-        return super.mouseReleased(click);
-    }
-
-    @Override
     public void tick() {
         if (this.state == 1) {
             if ((int) this.t < 21) {
