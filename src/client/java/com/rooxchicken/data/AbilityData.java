@@ -7,7 +7,6 @@ import java.util.List;
 public class AbilityData {
     public List<Identifier> textures = new ArrayList<>(2);
     public Identifier cooldownTexture = Identifier.of("psychis-mod", "textures/cooldown.png");
-    public Identifier outlineTexture = Identifier.of("psychis-mod", "textures/empty.png");
     public List<Integer> cooldowns = new ArrayList<>(List.of(0, 0));
     public List<Integer> cooldownMaxes = new ArrayList<>(List.of(1, 1));
     public boolean secondLocked = true;
