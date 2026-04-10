@@ -54,7 +54,7 @@ public class DrawGUICallback implements HudRenderCallback {
             drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.textures.get(0), 0, 0, 0, 0, 64, 64, 64, 64);
             int cooldown1Offset = (int) (64.0D * ((0.0D + (double) cooldown1) / (double) cooldown1Max));
             drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.cooldownTexture, 0, 64 - cooldown1Offset, 0, 0, 64, cooldown1Offset, 64, 64, 0x7FFFFFFF);
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.outlineTexture, 0, 0, 0, 0, 64, 64, 64, 64, 0x7FFFFFFF);
+            drawContext.drawStrokedRectangle(0, 0, 64, 64, 0x7FFFFFFF);
             this.stopScaling(drawContext);
             this.startScaling(drawContext, scale2);
             this.matrixStack.translate(pos2X, pos2Y);
@@ -66,7 +66,7 @@ public class DrawGUICallback implements HudRenderCallback {
                 txt2 = "LOCKED";
             }
 
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, abilityData.outlineTexture, 0, 0, 0, 0, 64, 64, 64, 64);
+            drawContext.drawStrokedRectangle(0, 0, 64, 64, 0x7FFFFFFF);
             this.stopScaling(drawContext);
             this.startScaling(drawContext, scale1 * 1.5F);
             this.matrixStack.translate((float) (pos1X / 1.5), (float) (pos1Y / 1.5));
