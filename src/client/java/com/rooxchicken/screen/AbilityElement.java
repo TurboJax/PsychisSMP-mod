@@ -7,7 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 public class AbilityElement {
    public float SmallestSize = 0.2F;
    public float SnapIncrement = 4;
-   public int index = -1;
+   public int index;
    public int MouseStatus = -2;
    public int ManipulationStatus = -1;
    public int PositionX = -1;
@@ -24,16 +24,16 @@ public class AbilityElement {
    protected float oldScale = 0;
    protected int length;
 
-   public AbilityElement(int _index) {
-      this.index = _index;
+   public AbilityElement(int index) {
+      this.index = index;
       this.reset();
    }
 
    public void HandleLines(ConfigScreen screen, DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
       int x1 = this.PositionX + this.x1Mod;
-      int x2 = (int)((double)this.PositionX + (double)this.x2Mod * this.Scale);
+      int x2 = (int) (this.PositionX + this.x2Mod * this.Scale);
       int y1 = this.PositionY + this.y1Mod;
-      int y2 = (int)((double)this.PositionY + (double)this.y2Mod * this.Scale);
+      int y2 = (int) (this.PositionY + this.y2Mod * this.Scale);
       if (this.ManipulationStatus == 2 && this.MouseStatus > -1) {
          context.fill(x1, y1, x1 + 8, y1 + 8, -65308);
       } else {
