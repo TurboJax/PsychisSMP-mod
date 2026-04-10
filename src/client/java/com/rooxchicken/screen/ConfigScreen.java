@@ -30,15 +30,15 @@ public class ConfigScreen extends Screen {
 
     public boolean mouseClicked(Click click, boolean doubled) {
         this.mouseStatus = click.button();
-        PsychisModClient.abilityElement1.MouseStatus = this.mouseStatus;
-        PsychisModClient.abilityElement2.MouseStatus = this.mouseStatus;
+        PsychisModClient.abilityElement1.mouseStatus = this.mouseStatus;
+        PsychisModClient.abilityElement2.mouseStatus = this.mouseStatus;
         return super.mouseClicked(click, doubled);
     }
 
     public boolean mouseReleased(Click click) {
         this.mouseStatus = -1;
-        PsychisModClient.abilityElement1.MouseStatus = this.mouseStatus;
-        PsychisModClient.abilityElement2.MouseStatus = this.mouseStatus;
+        PsychisModClient.abilityElement1.mouseStatus = this.mouseStatus;
+        PsychisModClient.abilityElement2.mouseStatus = this.mouseStatus;
         PsychisModClient.save();
         return super.mouseReleased(click);
     }

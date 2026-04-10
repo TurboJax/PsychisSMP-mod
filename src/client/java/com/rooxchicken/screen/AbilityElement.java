@@ -6,22 +6,20 @@ import net.minecraft.client.gui.DrawContext;
 import java.util.Scanner;
 
 public class AbilityElement {
-    public float SmallestSize = 0.2F;
-    public float SnapIncrement = 4;
+    public float smallestSize = 0.2F;
+    public float snapIncrement = 4;
     public int index;
-    public int MouseStatus = -2;
-    public int ManipulationStatus = -1;
-    public int PositionX = -1;
-    public int PositionY = -1;
-    public float Scale = -1;
-    protected int x1Mod = 0;
-    protected int x2Mod = 64;
-    protected int y1Mod = 0;
-    protected int y2Mod = 64;
+    public int mouseStatus = -2;
+    public int manipulationStatus = -1;
+    public int x = -1;
+    public int y = -1;
+    public float scale = -1;
+    protected final int width = 64;
+    protected final int height = 64;
     protected int oldMouseX = 0;
     protected int oldMouseY = 0;
-    protected int oldPositionX = 0;
-    protected int oldPositionY = 0;
+    protected int oldX = 0;
+    protected int oldY = 0;
     protected float oldScale = 0;
     protected int length;
 
@@ -31,11 +29,11 @@ public class AbilityElement {
     }
 
     public void HandleLines(ConfigScreen screen, DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        int x1 = this.PositionX + this.x1Mod;
-        int x2 = (int) (this.PositionX + this.x2Mod * this.Scale);
-        int y1 = this.PositionY + this.y1Mod;
-        int y2 = (int) (this.PositionY + this.y2Mod * this.Scale);
-        if (this.ManipulationStatus == 2 && this.MouseStatus > -1) {
+        int x1 = this.x;
+        int x2 = (int) (this.x + this.width * this.scale);
+        int y1 = this.y;
+        int y2 = (int) (this.y + this.height * this.scale);
+        if (this.manipulationStatus == 2 && this.mouseStatus > -1) {
             context.fill(x1, y1, x1 + 8, y1 + 8, -65308);
         } else {
             context.fill(x1, y1, x1 + 8, y1 + 8, -1);
@@ -45,37 +43,37 @@ public class AbilityElement {
         context.drawHorizontalLine(x1, x2, y2, -1);
         context.drawVerticalLine(x1, y1, y2, -1);
         context.drawVerticalLine(x2, y1, y2, -1);
-        if (!screen.ObjectSelected && this.MouseStatus > -1 && this.ManipulationStatus == -1) {
+        if (!screen.ObjectSelected && this.mouseStatus > -1 && this.manipulationStatus == -1) {
             if (this.AABBCheck(mouseX, mouseY, x1, x2, y1, y2)) {
-                this.ManipulationStatus = 1;
+                this.manipulationStatus = 1;
                 if (this.AABBCheck(mouseX, mouseY, x1, x1 + 8, y1, y1 + 8)) {
-                    this.ManipulationStatus = 2;
-                    this.oldScale = this.Scale;
+                    this.manipulationStatus = 2;
+                    this.oldScale = this.scale;
                     this.length = x2 - x1;
                     this.oldMouseX = mouseX;
                     this.oldMouseY = mouseY;
-                    this.oldPositionX = this.PositionX;
-                    this.oldPositionY = this.PositionY;
+                    this.oldX = this.x;
+                    this.oldY = this.y;
                 }
 
                 screen.ObjectSelected = true;
             } else {
-                this.ManipulationStatus = 0;
+                this.manipulationStatus = 0;
             }
-        } else if (this.MouseStatus == -1) {
-            this.ManipulationStatus = -1;
+        } else if (this.mouseStatus == -1) {
+            this.manipulationStatus = -1;
             screen.ObjectSelected = false;
         }
 
-        if (this.ManipulationStatus == 1) {
-            this.PositionX += mouseX - this.oldMouseX;
-            this.PositionY += mouseY - this.oldMouseY;
+        if (this.manipulationStatus == 1) {
+            this.x += mouseX - this.oldMouseX;
+            this.y += mouseY - this.oldMouseY;
         }
 
-        if (this.ManipulationStatus == 2) {
+        if (this.manipulationStatus == 2) {
             this.HandleScaling(mouseX, mouseY);
-            if (this.Scale < this.SmallestSize) {
-                this.Scale = this.SmallestSize;
+            if (this.scale < this.smallestSize) {
+                this.scale = this.smallestSize;
             }
         } else {
             this.oldMouseX = mouseX;
@@ -85,16 +83,16 @@ public class AbilityElement {
 
     public void HandleScaling(int mouseX, int mouseY) {
         float mScale = Math.max(mouseX - this.oldMouseX, mouseY - this.oldMouseY);
-        this.Scale = this.oldScale * (this.length - mScale) / this.length;
-        if (this.Scale < this.SmallestSize) {
-            this.Scale = this.SmallestSize;
+        this.scale = this.oldScale * (this.length - mScale) / this.length;
+        if (this.scale < this.smallestSize) {
+            this.scale = this.smallestSize;
         } else {
-            if (this.MouseStatus == 1) {
-                this.Scale = this.Scale * this.SnapIncrement / this.SnapIncrement;
+            if (this.mouseStatus == 1) {
+                this.scale = this.scale * this.snapIncrement / this.snapIncrement;
             }
 
-            this.PositionX = (int) (this.oldPositionX + (this.oldScale - this.Scale) * this.x2Mod);
-            this.PositionY = (int) (this.oldPositionY + (this.oldScale - this.Scale) * this.y2Mod);
+            this.x = (int) (this.oldX + (this.oldScale - this.scale) * this.width);
+            this.y = (int) (this.oldY + (this.oldScale - this.scale) * this.height);
         }
     }
 
@@ -103,19 +101,19 @@ public class AbilityElement {
     }
 
     public void reset() {
-        this.PositionX = 30 * this.index + 10;
-        this.PositionY = 20;
-        this.Scale = 0.4F;
-        this.SmallestSize = 0.15F;
+        this.x = 30 * this.index + 10;
+        this.y = 20;
+        this.scale = 0.4F;
+        this.smallestSize = 0.15F;
     }
 
     public String save() {
-        return this.PositionX + "\n" + this.PositionY + "\n" + this.Scale + "\n";
+        return this.x + "\n" + this.y + "\n" + this.scale + "\n";
     }
 
     public void load(Scanner input) {
-        this.PositionX = Integer.parseInt(input.nextLine());
-        this.PositionY = Integer.parseInt(input.nextLine());
-        this.Scale = Float.parseFloat(input.nextLine());
+        this.x = Integer.parseInt(input.nextLine());
+        this.y = Integer.parseInt(input.nextLine());
+        this.scale = Float.parseFloat(input.nextLine());
     }
 }
