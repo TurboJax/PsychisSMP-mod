@@ -5,7 +5,8 @@
 	"name": "Psychis Mod",
 	"description": "Mod that enables the use of the Psychis SMP plugin",
 	"authors": [
-		"RooXChicken"
+		"RooXChicken",
+		"TurboJax"
 	],
 	"license": "CC0-1.0",
 	"icon": "assets/psychis-mod/icon.png",
