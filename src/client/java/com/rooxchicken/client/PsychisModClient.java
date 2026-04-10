@@ -44,7 +44,14 @@ public class PsychisModClient implements ClientModInitializer {
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
         this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")))));
 
-        registerEvents();
+        ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
+            String content = message.getString();
+            if (content.startsWith("psyz91")) {
+                HandleData.parseData(content);
+                return false;
+            }
+            return true;
+        });
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
             if (PsychisModClient.playerAbility != -1) {
                 for (Keybind bind : keybinds) {
@@ -69,18 +76,6 @@ public class PsychisModClient implements ClientModInitializer {
         HudElementRegistry.addLast(Identifier.of("psychis-mod", "ability_element2"), abilityElement2);
 
         load();
-    }
-
-    public void registerEvents() {
-        // Intercepting data from server
-        ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
-            String content = message.getString();
-            if (content.startsWith("psyz91")) {
-                HandleData.parseData(content);
-                return false;
-            }
-            return true;
-        });
     }
 
     public static void sendChatCommand(String msg) {
