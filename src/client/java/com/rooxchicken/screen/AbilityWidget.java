@@ -111,6 +111,7 @@ public class AbilityWidget extends ClickableWidget {
     public void load(Scanner input) {
         setX(Integer.parseInt(input.nextLine()));
         setY(Integer.parseInt(input.nextLine()));
-        setWidth(Integer.parseInt(input.nextLine()));
+        width = Integer.parseInt(input.nextLine());
+        height = width;
     }
 }
