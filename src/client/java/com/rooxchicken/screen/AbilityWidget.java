@@ -43,10 +43,7 @@ public class AbilityWidget extends ClickableWidget {
         context.fill(x2 - 8, y2 - 8, x2, y2, scaling ? -65308 : -1);
 
         // Drawing the border
-        context.drawHorizontalLine(x1, x2, y1, clicked & !scaling ? -65308 : -1);
-        context.drawHorizontalLine(x1, x2, y2, clicked & !scaling ? -65308 : -1);
-        context.drawVerticalLine(x1, y1, y2, clicked & !scaling ? -65308 : -1);
-        context.drawVerticalLine(x2, y1, y2, clicked & !scaling ? -65308 : -1);
+        context.drawStrokedRectangle(0, 0, width, height, clicked & !scaling ? -65308 : -1);
     }
 
     @Override
