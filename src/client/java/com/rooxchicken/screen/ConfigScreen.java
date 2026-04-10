@@ -12,23 +12,19 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class ConfigScreen extends Screen {
-    private int mouseStatus = -2;
-    private ButtonWidget resetButton;
-    public boolean ObjectSelected = false;
-
     public ConfigScreen(Text title) {
         super(title);
     }
 
     public void init() {
-        this.resetButton = ButtonWidget.builder(Text.of("Reset"), (button) -> {
         this.addDrawableChild(PsychisModClient.abilityElement1);
         this.addDrawableChild(PsychisModClient.abilityElement2);
 
+        ButtonWidget resetButton = ButtonWidget.builder(Text.of("Reset"), (button) -> {
             PsychisModClient.abilityElement1.reset();
             PsychisModClient.abilityElement2.reset();
         }).dimensions(this.width / 2 - 50, this.height - 30, 100, 20).build();
-        this.addDrawableChild(this.resetButton);
+        this.addDrawableChild(resetButton);
     }
 
     public boolean mouseReleased(Click click) {
