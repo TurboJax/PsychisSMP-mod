@@ -5,11 +5,11 @@ import com.rooxchicken.data.AbilityData;
 import com.rooxchicken.data.AbilityDesc;
 import com.rooxchicken.data.HandleData;
 import com.rooxchicken.keybinding.CommandKeybind;
-import com.rooxchicken.keybinding.KeyInputHandler;
 import com.rooxchicken.keybinding.Keybind;
 import com.rooxchicken.screen.AbilityWidget;
 import com.rooxchicken.screen.ConfigScreen;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
@@ -43,9 +43,15 @@ public class PsychisModClient implements ClientModInitializer {
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability1", GLFW.GLFW_KEY_Z, "hdn_ability1"));
         this.keybinds.add(new CommandKeybind(this.category, "key.ckb.ability2", GLFW.GLFW_KEY_X, "hdn_ability2"));
         this.keybinds.add(new Keybind(this.category, "key.ckb.config", GLFW.GLFW_KEY_C, () -> MinecraftClient.getInstance().setScreen(new ConfigScreen(Text.of("Config Screen")))));
-        KeyInputHandler.registerKeyInputs(this.keybinds);
 
         registerEvents();
+        ClientTickEvents.END_CLIENT_TICK.register((client) -> {
+            if (PsychisModClient.playerAbility != -1) {
+                for (Keybind bind : keybinds) {
+                    bind.checkKey();
+                }
+            }
+        });
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             enabled = false;
             playerAbility = -2;
