@@ -3,27 +3,16 @@ package com.rooxchicken.screen;
 import java.util.Scanner;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.option.KeyBinding;
 
 public class AbilityElement {
-   public String Name;
-   public String Description;
-   public boolean Enabled;
-   public boolean Visible = true;
-   public boolean HasLines = true;
    public float SmallestSize = 0.2F;
    public float SnapIncrement = 4;
    public int index = -1;
-   public String KeyName;
-   public KeyBinding UsageKey;
-   public boolean SettingsOpen;
    public int MouseStatus = -2;
    public int ManipulationStatus = -1;
    public int PositionX = -1;
    public int PositionY = -1;
    public float Scale = -1;
-   public double ScaleX;
-   public double ScaleY;
    protected int x1Mod = 0;
    protected int x2Mod = 64;
    protected int y1Mod = 0;
