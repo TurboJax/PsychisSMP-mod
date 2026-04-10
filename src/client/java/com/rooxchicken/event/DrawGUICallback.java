@@ -21,16 +21,6 @@ public class DrawGUICallback implements HudRenderCallback {
         TextRenderer textRenderer = client.textRenderer;
         if (PsychisModClient.playerAbility != -2) {
             AbilityData abilityData = PsychisModClient.abilityData;
-            float scale1 = PsychisModClient.abilityElement1.scale;
-            float pos1X = PsychisModClient.abilityElement1.x * (1.0f / scale1);
-            float pos1Y = PsychisModClient.abilityElement1.y * (1.0f / scale1);
-            float scale2 = PsychisModClient.abilityElement2.scale;
-            float pos2X = PsychisModClient.abilityElement2.x * (1.0f / scale2);
-            float pos2Y = PsychisModClient.abilityElement2.y * (1.0f / scale2);
-            int cooldown1 = abilityData.cooldown1;
-            int cooldown2 = abilityData.cooldown2;
-            int cooldown1Max = abilityData.cooldown1Max;
-            int cooldown2Max = abilityData.cooldown2Max;
             float scale1 = PsychisModClient.abilityElement1.getWidth() / 64f;
             float pos1X = PsychisModClient.abilityElement1.getX() * (1.0f / scale1);
             float pos1Y = PsychisModClient.abilityElement1.getY() * (1.0f / scale1);
