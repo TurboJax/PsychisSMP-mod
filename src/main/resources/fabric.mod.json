@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "psychis-mod",
-	"version": "1.0.0",
+	"version": "$version",
 	"name": "Psychis Mod",
 	"description": "Mod that enables the use of the Psychis SMP plugin",
 	"authors": [
