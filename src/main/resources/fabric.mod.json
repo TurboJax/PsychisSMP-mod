@@ -10,17 +10,14 @@
 	],
 	"license": "MIT",
 	"icon": "assets/psychis-mod/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
           "com.rooxchicken.PsychisMod"
-		],
-		"client": [
-          "com.rooxchicken.client.PsychisModClient"
 		]
 	},
 	"mixins": [
-      "psychis-mod.client.mixins.json"
+      "psychis-mod.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",

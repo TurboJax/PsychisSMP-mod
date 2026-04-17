@@ -1,6 +1,6 @@
 package com.rooxchicken.screen;
 
-import com.rooxchicken.client.PsychisModClient;
+import com.rooxchicken.PsychisMod;
 import com.rooxchicken.data.AbilityDesc;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
@@ -26,7 +26,7 @@ public class AbilitySelection extends Screen {
     public AbilitySelection(Text title) {
         super(title);
 
-        AbilityDesc ability = PsychisModClient.abilities.get(this.index);
+        AbilityDesc ability = PsychisMod.abilities.get(this.index);
 
         IconWidget img1 = IconWidget.create(24, 24, Identifier.of("psychis-mod", "textures/gui/left.png"), 24, 24);
         img1.setTooltip(Tooltip.of(Text.literal("Second ability unlock: " + ability.secondUnlock)));
@@ -44,16 +44,16 @@ public class AbilitySelection extends Screen {
             switch (this.clickAction) {
                 case 0:
                     if (--this.index < 0) {
-                        this.index = PsychisModClient.abilities.size() - 1;
+                        this.index = PsychisMod.abilities.size() - 1;
                     }
                     break;
                 case 1:
-                    if (++this.index > PsychisModClient.abilities.size() - 1) {
+                    if (++this.index > PsychisMod.abilities.size() - 1) {
                         this.index = 0;
                     }
                     break;
                 case 2:
-                    PsychisModClient.sendChatCommand("hdn_pickability " + PsychisModClient.abilities.get(this.index).index);
+                    PsychisMod.sendChatCommand("hdn_pickability " + PsychisMod.abilities.get(this.index).index);
                     this.close();
             }
         }
@@ -78,7 +78,7 @@ public class AbilitySelection extends Screen {
 
         super.render(context, mouseX, mouseY, delta);
         context.drawTexture(RenderPipelines.GUI_TEXTURED, this.bgTexture, this.width / 2 - 128, this.height / 2 - 128, 0, 0, 256, 256, 256, 256);
-        AbilityDesc ability = PsychisModClient.abilities.get(this.index);
+        AbilityDesc ability = PsychisMod.abilities.get(this.index);
         int yIndex = 0;
         context.drawText(this.textRenderer, Text.literal(ability.name), this.width / 2, this.height / 2 - 90, -1, false);
         String[] passives = ability.passive.split("\\+");

@@ -1,6 +1,6 @@
 package com.rooxchicken.screen;
 
-import com.rooxchicken.client.PsychisModClient;
+import com.rooxchicken.PsychisMod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.Click;
@@ -68,7 +68,7 @@ public class CardSelect extends Screen {
                 this.card2 = Identifier.of("psychis-mod", "textures/cards/card_" + this.cards[1] + ".png");
                 this.card3 = Identifier.of("psychis-mod", "textures/cards/card_" + this.cards[2] + ".png");
                 this.state = 2;
-                PsychisModClient.sendChatCommand("pickcard " + this.cards[this.clickAction]);
+                PsychisMod.sendChatCommand("pickcard " + this.cards[this.clickAction]);
             }
         }
 

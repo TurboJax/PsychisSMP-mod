@@ -1,6 +1,6 @@
 package com.rooxchicken.screen;
 
-import com.rooxchicken.client.PsychisModClient;
+import com.rooxchicken.PsychisMod;
 import com.rooxchicken.data.AbilityData;
 import com.rooxchicken.data.HandleData;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
@@ -14,6 +14,7 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix3x2fStack;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class AbilityWidget extends ClickableWidget implements HudElement {
         height = (int) (scale * 24);
 
         // Getting the ability data
-        AbilityData abilityData = PsychisModClient.abilityData;
+        AbilityData abilityData = PsychisMod.abilityData;
         int cooldown = abilityData.cooldowns.get(index);
         int cooldownMax = abilityData.cooldownMaxes.get(index);
 
@@ -107,7 +108,7 @@ public class AbilityWidget extends ClickableWidget implements HudElement {
     }
 
     @Override
-    public void render(DrawContext context, RenderTickCounter tickCounter) {
+    public void render(@NonNull DrawContext context, @NonNull RenderTickCounter tickCounter) {
         render(context);
     }
 

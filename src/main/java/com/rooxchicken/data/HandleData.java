@@ -1,6 +1,6 @@
 package com.rooxchicken.data;
 
-import com.rooxchicken.client.PsychisModClient;
+import com.rooxchicken.PsychisMod;
 import com.rooxchicken.screen.AbilitySelection;
 import com.rooxchicken.screen.CardSelect;
 import net.minecraft.client.MinecraftClient;
@@ -17,23 +17,23 @@ public class HandleData {
         int mode = Integer.parseInt(data[1]);
         switch (mode) {
             case 0:
-                PsychisModClient.playerAbility = Integer.parseInt(data[2]);
-                PsychisModClient.abilityData = new AbilityData(String.valueOf(PsychisModClient.playerAbility));
-                PsychisModClient.abilityData.secondLocked = !Boolean.parseBoolean(data[3]);
-                PsychisModClient.sendChatCommand("hdn_verifymod");
+                PsychisMod.playerAbility = Integer.parseInt(data[2]);
+                PsychisMod.abilityData = new AbilityData(String.valueOf(PsychisMod.playerAbility));
+                PsychisMod.abilityData.secondLocked = !Boolean.parseBoolean(data[3]);
+                PsychisMod.sendChatCommand("hdn_verifymod");
                 break;
             case 1:
                 int ability = Integer.parseInt(data[2]);
                 int cooldown = Integer.parseInt(data[3]);
                 int cooldownMax = Integer.parseInt(data[4]);
-                PsychisModClient.abilityData.cooldowns.set(ability, cooldown);
-                PsychisModClient.abilityData.cooldownMaxes.set(ability, cooldownMax);
+                PsychisMod.abilityData.cooldowns.set(ability, cooldown);
+                PsychisMod.abilityData.cooldownMaxes.set(ability, cooldownMax);
                 break;
             case 2:
                 AbilityDesc desc = new AbilityDesc();
                 desc.name = data[2];
                 if (desc.name.equals(".")) {
-                    PsychisModClient.abilities.clear();
+                    PsychisMod.abilities.clear();
                     return;
                 }
 
@@ -44,11 +44,11 @@ public class HandleData {
                 desc.ability2Name = data[7];
                 desc.ability2Desc = data[8];
                 desc.secondUnlock = data[9];
-                PsychisModClient.abilities.add(desc);
+                PsychisMod.abilities.add(desc);
                 break;
             case 3:
-                PsychisModClient.playerAbility = -2;
-                PsychisModClient.abilityData = new AbilityData("empty");
+                PsychisMod.playerAbility = -2;
+                PsychisMod.abilityData = new AbilityData("empty");
                 MinecraftClient client = MinecraftClient.getInstance();
                 client.setScreen(new AbilitySelection(Text.of("Ability Selection")));
                 break;
@@ -69,7 +69,7 @@ public class HandleData {
                 dragonEggAbilityOverride = Integer.parseInt(data[2]);
                 break;
             case 8:
-                PsychisModClient.enabled = true;
+                PsychisMod.enabled = true;
         }
 
     }
