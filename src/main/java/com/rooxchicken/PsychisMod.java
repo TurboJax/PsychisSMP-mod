@@ -8,7 +8,7 @@ import com.rooxchicken.keybinding.CommandKeybind;
 import com.rooxchicken.keybinding.Keybind;
 import com.rooxchicken.screen.AbilityWidget;
 import com.rooxchicken.screen.ConfigScreen;
-import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PsychisMod implements ClientModInitializer {
+public class PsychisMod implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("psychis-mod");
 
     public ArrayList<Keybind> keybinds;
@@ -42,7 +42,7 @@ public class PsychisMod implements ClientModInitializer {
     public static AbilityWidget abilityElement2;
     public static boolean enabled = false;
 
-    public void onInitializeClient() {
+    public void onInitialize() {
         LOGGER.info("1987 custom keybinds supported! (made by roo)");
 
         abilities = new ArrayList<>();
