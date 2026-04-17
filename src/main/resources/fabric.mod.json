@@ -1,28 +1,28 @@
 {
-	"schemaVersion": 1,
-	"id": "psychis-mod",
-	"version": "$version",
-	"name": "Psychis Mod",
-	"description": "Mod that enables the use of the Psychis SMP plugin",
-	"authors": [
-		"RooXChicken",
-		"TurboJax"
-	],
-	"license": "MIT",
-	"icon": "assets/psychis-mod/icon.png",
-	"environment": "client",
-	"entrypoints": {
-		"main": [
+    "schemaVersion": 1,
+    "id": "psychis-mod",
+    "version": "$version",
+    "name": "Psychis Mod",
+    "description": "Mod that enables the use of the Psychis SMP plugin",
+    "authors": [
+        "RooXChicken",
+        "TurboJax"
+    ],
+    "license": "MIT",
+    "icon": "assets/psychis-mod/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "main": [
           "com.rooxchicken.PsychisMod"
-		]
-	},
-	"mixins": [
+        ]
+    },
+    "mixins": [
       "psychis-mod.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": ">=1.21",
-		"java": ">=21",
-		"fabric-api": "*"
-	}
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.11",
+        "minecraft": ">=1.21",
+        "java": ">=21",
+        "fabric-api": "*"
+    }
 }
