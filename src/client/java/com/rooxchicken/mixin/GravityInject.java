@@ -1,15 +1,15 @@
 package com.rooxchicken.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.rooxchicken.client.PsychisModClient;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(LivingEntity.class)
 public class GravityInject {
-    @ModifyVariable(method = "travelMidAir(Lnet/minecraft/util/math/Vec3d;)V", at = @At("STORE"), ordinal = 0)
-    private double travelInject(double d) {
+    @ModifyReturnValue(method = "getGravity()D", at = @At("RETURN"))
+    private double getGravityModified(double d) {
         return PsychisModClient.playerAbility == 5 ? 0.1D : d;
     }
 }
